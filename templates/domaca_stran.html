@@ -1,23 +1,29 @@
 {% extends 'shema.html' %}
-{% block podnaslov %}Domača stran{% endblock %}
+{% block podnaslov %}DA SI MAL ZAMISLS!{% endblock %}
 {% block vsebina %}
-    <div class="center">
-        <img src="/static/slika.png" />
-    </div>
     <p>
-        <a href='/druga_stran'>
-            Pojdi na drugo stran
-        </a>
-        Pojdi na <a href="http://google.com">Google</a>
+     Dobrodošli na najini spletni strani.
+     <br>
+     Za projekt pri programerskem krožku bova bova naredilča spletno aplikacijo, ki ti bo na messenger pošiljala citate profesorjev. Sam boš lahko izbral profesorja in kolikokrat na teden želiš dobivati citate.    
+    </p>
+    <p>Da bova lahko izvedla projekt potrebujeva vašo pomoč. Prosila bi da nama pošljete čimveč citatov profesorjev. Če želite poslati citat se lahko registrirate na najini strani ali pa preko Googla, Facebooka in Twitterja. Citate nama lahko pošljete tudi na zs.
+    </p>
+    <br>
+    <br>
+    <br>
+    <p>
+    
     </p>
     <p>
-        Tukaj je besedilo prvega odstavka. Naslednja beseda je <b>krepka</b> in naslednja <i>poševna</i>.
-    </p>
-    <p>
-        Tukaj je besedilo drugega odstavka. Naslednja beseda je <b>krepka</b> in naslednja <i>poševna</i>.
-    </p>
-    <p>
-        <a href="/vislice"> Igraj vislice </a>
+        <form method="POST">
+            <select name="profesorj">
+              <option value="volvo">Volvo</option>
+            </select>
+            <br>
+            <input type="submit" value="Pošlji">
+        </form>
+        <br>
+        <textarea rows="6" cols="240" name="citat" form="usrform"> 
     </p>
 {% endblock %}
 
