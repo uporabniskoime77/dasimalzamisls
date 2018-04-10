@@ -42,11 +42,12 @@ def login():
 
 @app.route("/citati")
 def citati():
-    baza.dobi_citate
+    nekej = baza.dobi_citate()
+    return render_template ("citati.html", nekej=nekej)
 
-@app.route("/citati/<prof_id :int>")
+@app.route("/citati/<int:prof_id>")
 def dobi(prof_id):
-    return render_template("/citati")
+    return render_template("citati.html")
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

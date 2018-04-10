@@ -110,7 +110,8 @@ def dobi_citate(prof_id = None):
         citati = kazalec.execute("SELECT * FROM Citati WHERE id=%s", (prof_id,))
         profesor = kazalec.execute("SELECT FROM Profs WHERE id=%s", (prof_id,))
         return citati, profesor
-    else: 
+    else:
+        pass 
         
 
 
