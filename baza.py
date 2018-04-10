@@ -76,28 +76,15 @@ def vstavi_novega_uporabnika(username, password="123"):
     return nov_user_id
 
 
-def vstavi_novo_igro(user_id, napake, beseda):
-    """ Vstavi novo igro v tabelo Scores. """
+def vstavi_citat(citat, prof_id, user_id):
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
-    kazalec.execute("""INSERT INTO Scores (user_id, napake, beseda)
+    kazalec.execute("""INSERT INTO Citati (citat, prof_id, user_id)
                        VALUES (%s, %s, %s)""", (user_id, napake, beseda))
     povezava.commit()
     kazalec.close()
     povezava.close()
 
-
-def dobi_najboljse():
-    """ Najdi 10 iger z najmanj napakami. """
-    povezava = naredi_povezavo()
-    kazalec = povezava.cursor()
-    kazalec.execute("""
-        SELECT Users.username, Scores.napake, Scores.beseda
-        FROM Scores
-        JOIN Users ON Scores.user_id=Users.id
-        ORDER BY Scores.napake
-        """)
-    return kazalec.fetchmany(10)
 
 
 def dobi_uporabnika(user_id=None, username=None, password=None):
@@ -116,6 +103,15 @@ def dobi_uporabnika(user_id=None, username=None, password=None):
                         "Nimam dovolj podatkov, da bi našel uporabnika.")
 
     return kazalec.fetchone()
+def dobi_citate(prof_id = None):
+    povezava = naredi_povezavo()
+    kazalec = povezava.cursor()
+    if prof_id != None:
+        citati = kazalec.execute("SELECT * FROM Citati WHERE id=%s", (prof_id,))
+        profesor = kazalec.execute("SELECT FROM Profs WHERE id=%s", (prof_id,))
+        return citati, profesor
+    else: 
+        
 
 
 if __name__ == "__main__":
