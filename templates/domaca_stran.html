@@ -1,0 +1,23 @@
+{% extends 'shema.html' %}
+{% block podnaslov %}Domača stran{% endblock %}
+{% block vsebina %}
+    <div class="center">
+        <img src="/static/slika.png" />
+    </div>
+    <p>
+        <a href='/druga_stran'>
+            Pojdi na drugo stran
+        </a>
+        Pojdi na <a href="http://google.com">Google</a>
+    </p>
+    <p>
+        Tukaj je besedilo prvega odstavka. Naslednja beseda je <b>krepka</b> in naslednja <i>poševna</i>.
+    </p>
+    <p>
+        Tukaj je besedilo drugega odstavka. Naslednja beseda je <b>krepka</b> in naslednja <i>poševna</i>.
+    </p>
+    <p>
+        <a href="/vislice"> Igraj vislice </a>
+    </p>
+{% endblock %}
+

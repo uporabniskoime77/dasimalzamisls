@@ -1,0 +1,14 @@
+{% extends 'shema.html' %}
+{% block podnaslov %}Prijavi se!{% endblock %}
+{% block vsebina %}
+    <p>
+        <form method="POST">
+            <input placeholder="Uporabniško ime" type="text" name="username"><br>
+            <input placeholder="Geslo" type="password" name="password"><br>
+            <input type="submit" value="Prijava">
+        </form>
+    </p>
+    <p>
+        Še nimaš računa? <a href="/register">Registriraj se!</a>
+    </p>
+{% endblock %}
