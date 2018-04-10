@@ -16,7 +16,6 @@ ascii_crke = ascii_lowercase + "čžš"
 
 @app.route("/")
 def index():
-    
     return render_template("domaca_stran.html")
 
 @app.route("/logout")
@@ -38,6 +37,14 @@ def login():
             return render_template("login.html", error="Napačni podatki")
         else:
             return redirect('/')
+
+@app.route("/citati")
+def citati():
+    baza.dobi_citate
+
+@app.route("/citati/<prof_id :int>")
+def dobi(prof_id):
+    return render_template("/citati")
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

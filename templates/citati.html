@@ -1,0 +1,18 @@
+{% extends 'shema.html' %}
+{% block podnaslov %}Tukaj lahko vidiš že vnesene citate za tega profesorja{% endblock %}
+{% block vsebina %}
+    <p>
+    <select name = "profesorji">
+        <option value = "mozer"> Mozi </option> 
+    
+
+     </select>
+    </p>
+
+    {% for stvar in session['citati'] %}
+        {{citat}}
+
+    {% endfor %}
+
+
+{%endblock%}
