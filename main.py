@@ -14,9 +14,10 @@ app = Flask(__name__)
 app.secret_key = "akshfdgas"
 ascii_crke = ascii_lowercase + "čžš"
 
-@app.route("/")
+@app.route("/", methods = ['GET', 'POST'])
 def index():
-    
+    if request.method == 'POST':
+        print(request.form)
     return render_template("domaca_stran.html")
 
 @app.route("/logout")

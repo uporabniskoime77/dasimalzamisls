@@ -1,6 +1,7 @@
 {% extends 'shema.html' %}
 {% block podnaslov %}DA SI MAL ZAMISLS!{% endblock %}
 {% block vsebina %}
+    <div style="text-align: left;">
     <p>
      Dobrodošli na najini spletni strani.
      <br>
@@ -12,18 +13,20 @@
     <br>
     <br>
     <p>
-    
+     <b>Daniel Blažič, Luka Peršolja</b>
     </p>
     <p>
-        <form method="POST">
-            <select name="profesorj">
+        <form method="POST" id="citat_id">
+            <select name="profesor">
               <option value="volvo">Volvo</option>
             </select>
-            <br>
-            <input type="submit" value="Pošlji">
-        </form>
         <br>
-        <textarea rows="6" cols="240" name="citat" form="usrform"> 
+        <input type="submit" value="Pošlji">
+        <br>
+        <textarea rows="6" cols="50" name="citat" form="citat_id" placeholder="Tukaj vpiši citat">
+        </textarea> 
+        </form>
     </p>
+    </div>
 {% endblock %}
 
