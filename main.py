@@ -13,11 +13,12 @@ import baza
 app = Flask(__name__)
 app.secret_key = "akshfdgas"
 ascii_crke = ascii_lowercase + "čžš"
+session['profs'] = 
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        print(request.form)
+        baza.vstavi_citat(citat=request.form['citat'], prof_id=request.form['profesor'], user_id=baza.dobi_id(session['user'][0]))
     return render_template("domaca_stran.html")
 
 @app.route("/logout")
@@ -46,8 +47,10 @@ def citati():
     return render_template ("citati.html", nekej=nekej)
 
 @app.route("/citati/<int:prof_id>")
-def dobi(prof_id):
-    return render_template("citati.html")
+def dobi_citate(prof_id):
+    citati = baza.dobi_citate()[:-1]
+    prof = baza.dobi_citate()[-1]
+    return render_template("citati.html", citati=citati, prof=prof)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

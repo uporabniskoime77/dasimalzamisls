@@ -31,8 +31,9 @@ def ustvari_tabele():
     kazalec = povezava.cursor()
 
     # Zbriši
-    kazalec.execute("DROP TABLE IF EXISTS Scores")
+    kazalec.execute("DROP TABLE IF EXISTS Profs")
     kazalec.execute("DROP TABLE IF EXISTS Users")
+    kazalec.execute("DROP TABLE IF EXISTS Citati")
 
     # Naredi tabelo Users
     kazalec.execute("""CREATE TABLE Users (
@@ -40,12 +41,15 @@ def ustvari_tabele():
                            username VARCHAR(100) UNIQUE NOT NULL,
                            password VARCHAR(100) NOT NULL
                        )""")
-    # Naredi tabelo Scores
-    kazalec.execute("""CREATE TABLE Scores (
+    kazalec.execute("""CREATE TABLE Profs (
                            id       SERIAL PRIMARY KEY,
-                           user_id  INT,
-                           napake   INT,
-                           beseda   VARCHAR(100),
+                           ime      VARCHAR(100) NOT NULL
+                       )""")
+
+    kazalec.execute("""CREATE TABLE Citati (
+                           id       SERIAL PRIMARY KEY,
+                           citat    VARCHAR(300) NOT NULL
+                           FOREIGN KEY (prof_id) REFERENCES Profs (id)
                            FOREIGN KEY (user_id) REFERENCES Users (id)
                        )""")
     povezava.commit()
@@ -80,7 +84,7 @@ def vstavi_citat(citat, prof_id, user_id):
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
     kazalec.execute("""INSERT INTO Citati (citat, prof_id, user_id)
-                       VALUES (%s, %s, %s)""", (user_id, napake, beseda))
+                       VALUES (%s, %s, %s)""", (citat, prof_id, user_id))
     povezava.commit()
     kazalec.close()
     povezava.close()
@@ -103,16 +107,24 @@ def dobi_uporabnika(user_id=None, username=None, password=None):
                         "Nimam dovolj podatkov, da bi našel uporabnika.")
 
     return kazalec.fetchone()
+
+
 def dobi_citate(prof_id = None):
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
     if prof_id != None:
         citati = kazalec.execute("SELECT * FROM Citati WHERE id=%s", (prof_id,))
-        profesor = kazalec.execute("SELECT FROM Profs WHERE id=%s", (prof_id,))
+        profesor = kazalec.execute("SELECT * FROM Profs WHERE id=%s", (prof_id,))
         return citati, profesor
     else:
-        pass 
+        citati = kazalec.execute("SELECT ? FROM Citati")
+        return kazalec.fetchmany(10)
         
+def dobi_id(username):
+    povezava = naredi_povezavo()
+    kazalec = povezava.cursor()
+    kazalec.execute("SELECT id FROM Users WHERE username=%s", (username,))
+
 
 
 if __name__ == "__main__":
