@@ -17,9 +17,10 @@ session['profs'] =
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
+    profs = baza.profesorji()
     if request.method == 'POST':
         baza.vstavi_citat(citat=request.form['citat'], prof_id=request.form['profesor'], user_id=baza.dobi_id(session['user'][0]))
-    return render_template("domaca_stran.html")
+    return render_template("domaca_stran.html", profs=profs)
 
 @app.route("/logout")
 def logout():
