@@ -125,6 +125,12 @@ def dobi_id(username):
     kazalec = povezava.cursor()
     kazalec.execute("SELECT id FROM Users WHERE username=%s", (username,))
 
+def profesorji():
+    povezava = naredi_povezavo()
+    kazalec = povezava.cursor()
+    kazalec.execute("SELECT id, ime FROM Profs")
+    return kazalec.fetchall()
+
 
 
 if __name__ == "__main__":
