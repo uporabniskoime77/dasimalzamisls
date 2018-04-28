@@ -1,4 +1,3 @@
-from string import ascii_lowercase
 from random import randint
 
 from flask import Flask
@@ -12,7 +11,6 @@ import baza
 
 app = Flask(__name__)
 app.secret_key = "akshfdgas"
-ascii_crke = ascii_lowercase + "čžš" 
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
@@ -44,6 +42,7 @@ def login():
 @app.route("/citati")
 def citati():
     nekej = baza.dobi_citate()
+    print(nekej)
     return render_template ("citati.html", nekej=nekej)
 
 @app.route("/citati/<int:prof_id>")

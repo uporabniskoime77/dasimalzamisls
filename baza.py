@@ -26,13 +26,13 @@ def zakodiraj_geslo(password):
 
 
 def ustvari_tabele():
-    """ Najprej izbriši in nato naredi dve tabeli: Users in Scores. """
+    """ Najprej izbriši in nato naredi tabele """
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
-
+    print("ustvarjam tabele")
     # Zbriši
-    kazalec.execute("DROP TABLE IF EXISTS Citati")
-    kazalec.execute("DROP TABLE IF EXISTS Users")
+    kazalec.execute("DROP TABLE IF EXISTS Citati")    
+    kazalec.execute("DROP TABLE IF EXISTS Users CASCADE")
     kazalec.execute("DROP TABLE IF EXISTS Profs")
 
     # Naredi tabelo Users
@@ -60,11 +60,11 @@ def ustvari_tabele():
 def napolni_tabele():
     """ Ustvari nekaj uporabnikov in nekaj iger. """
     from random import randint
-    import uuid
+    print("tabele so filajo")
     for i in range(10):
         user_id = vstavi_novega_uporabnika("Uporabnik"+str(i))
         for j in range(10):
-            vstavi_novo_igro(user_id, randint(30, 100), str(uuid.uuid4()))
+            vstavi_citat("sej ne veš", 2, user_id)
 
 
 def vstavi_novega_uporabnika(username, password="123"):
@@ -110,6 +110,7 @@ def dobi_uporabnika(user_id=None, username=None, password=None):
 
 
 def dobi_citate(prof_id = None):
+    print("pridem po citate")
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
     if prof_id != None:
@@ -117,7 +118,7 @@ def dobi_citate(prof_id = None):
         profesor = kazalec.execute("SELECT * FROM Profs WHERE id=%s", (prof_id,))
         return citati, profesor
     else:
-        citati = kazalec.execute("SELECT ? FROM Citati")
+        citati = kazalec.execute("SELECT * FROM Citati")
         return kazalec.fetchmany(10)
         
 def dobi_id(username):
@@ -134,4 +135,7 @@ def profesorji():
 
 
 if __name__ == "__main__":
+
     ustvari_tabele()
+    print("velike stvari se dogajajo")
+    napolni_tabele()

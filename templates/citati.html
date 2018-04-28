@@ -2,17 +2,15 @@
 {% block podnaslov %}Tukaj lahko vidiš že vnesene citate za tega profesorja{% endblock %}
 {% block vsebina %}
     <p>
-    <select name = "profesorji">
-        {%for n in range(len(profs),2)%}
-              <option value="{{a[n]}}">{{a[n+1]}}</option>
-        {% endfor %}
-     </select>
-    </p>
+    {% for stvar in nekej %}
 
-    {% for stvar in citati %}
         {{stvar}}
 
     {% endfor %}
+
+    </p>
+
+
 
 
 {%endblock%}
