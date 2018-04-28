@@ -18,7 +18,9 @@
     <p>
         <form method="POST" id="citat_id">
             <select name="profesor">
-              <option value="volvo">Volvo</option>
+            {%for id,prof in session['profs']%}
+              <option value="{{id}}">{{prof}}</option>
+            {% endfor %}
             </select>
         <br>
         <textarea rows="6" cols="50" name="citat" form="citat_id" placeholder="Tukaj vpiši citat">

@@ -2,7 +2,7 @@ import os
 from urllib import parse
 import psycopg2
 
-DATABASE_URL = "postgres://postgres:asuna@localhost:5432/vislice"
+DATABASE_URL = "postgres://lukapersolja:Ursa2017@localhost:5432/test"
 
 
 def naredi_povezavo():
@@ -48,9 +48,9 @@ def ustvari_tabele():
 
     kazalec.execute("""CREATE TABLE Citati (
                            id       SERIAL PRIMARY KEY,
-                           citat    VARCHAR(300) NOT NULL
-                           FOREIGN KEY (prof_id) REFERENCES Profs (id)
-                           FOREIGN KEY (user_id) REFERENCES Users (id)
+                           citat    VARCHAR(300) NOT NULL,
+                            FOREIGN KEY (prof_id) REFERENCES Profs (id)
+                            FOREIGN KEY (user_id) REFERENCES Users (id)
                        )""")
     povezava.commit()
     kazalec.close()

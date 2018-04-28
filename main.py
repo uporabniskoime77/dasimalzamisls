@@ -12,8 +12,7 @@ import baza
 
 app = Flask(__name__)
 app.secret_key = "akshfdgas"
-ascii_crke = ascii_lowercase + "čžš"
-session['profs'] = 
+ascii_crke = ascii_lowercase + "čžš" 
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():

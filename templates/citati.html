@@ -3,9 +3,9 @@
 {% block vsebina %}
     <p>
     <select name = "profesorji">
-        <option value = "mozer"> Mozi </option> 
-    
-
+        {%for n in range(len(profs),2)%}
+              <option value="{{a[n]}}">{{a[n+1]}}</option>
+        {% endfor %}
      </select>
     </p>
 
