@@ -2,7 +2,7 @@ import os
 from urllib import parse
 import psycopg2
 
-DATABASE_URL = "postgres://lukapersolja:Ursa2017@localhost:5432/test"
+DATABASE_URL = "postgres://postgres:asuna@localhost:5432/vislice"
 
 
 def naredi_povezavo():
@@ -31,9 +31,9 @@ def ustvari_tabele():
     kazalec = povezava.cursor()
 
     # Zbriši
-    kazalec.execute("DROP TABLE IF EXISTS Profs")
-    kazalec.execute("DROP TABLE IF EXISTS Users")
     kazalec.execute("DROP TABLE IF EXISTS Citati")
+    kazalec.execute("DROP TABLE IF EXISTS Users")
+    kazalec.execute("DROP TABLE IF EXISTS Profs")
 
     # Naredi tabelo Users
     kazalec.execute("""CREATE TABLE Users (
@@ -49,8 +49,8 @@ def ustvari_tabele():
     kazalec.execute("""CREATE TABLE Citati (
                            id       SERIAL PRIMARY KEY,
                            citat    VARCHAR(300) NOT NULL,
-                            FOREIGN KEY (prof_id) REFERENCES Profs (id)
-                            FOREIGN KEY (user_id) REFERENCES Users (id)
+                            prof_id INT REFERENCES Profs (id),
+                            user_id INT REFERENCES Users (id)
                        )""")
     povezava.commit()
     kazalec.close()
