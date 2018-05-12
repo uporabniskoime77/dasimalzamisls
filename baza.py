@@ -2,7 +2,7 @@ import os
 from urllib import parse
 import psycopg2
 
-DATABASE_URL = "postgres://postgres:asuna@localhost:5432/vislice"
+DATABASE_URL = "postgres://lukapersolja:Ursa2017@localhost:5432/test"
 
 
 def naredi_povezavo():
@@ -37,10 +37,11 @@ def ustvari_tabele():
 
     # Naredi tabelo Users
     kazalec.execute("""CREATE TABLE Users (
-                           id       SERIAL PRIMARY KEY,
+                           id       BIGSERIAL PRIMARY KEY,
                            username VARCHAR(100) UNIQUE NOT NULL,
-                           password VARCHAR(100) NOT NULL
-                       )""")
+                           password VARCHAR(100) NOT NULL,
+                           email    VARCHAR(100) UNIQUE
+                        )""")
     kazalec.execute("""CREATE TABLE Profs (
                            id       SERIAL PRIMARY KEY,
                            ime      VARCHAR(100) NOT NULL
@@ -67,12 +68,12 @@ def napolni_tabele():
             vstavi_citat("sej ne veš", 2, user_id)
 
 
-def vstavi_novega_uporabnika(username, password="123"):
+def vstavi_novega_uporabnika(username, password="123", email=None):
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
     kazalec.execute(
-        "INSERT INTO Users (username, password) VALUES (%s, %s) RETURNING id",
-        (username, zakodiraj_geslo(password)))
+        "INSERT INTO Users (username, password, email) VALUES (%s, %s, %s) RETURNING id",
+        (username, zakodiraj_geslo(password), email))
     nov_user_id = kazalec.fetchone()[0]
     povezava.commit()
     kazalec.close()
@@ -91,7 +92,7 @@ def vstavi_citat(citat, prof_id, user_id):
 
 
 
-def dobi_uporabnika(user_id=None, username=None, password=None):
+def dobi_uporabnika(user_id=None, username=None, password=None, email=None):
     """ V bazi najde in vrne uporabnika (če osbstaja) """
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
@@ -102,6 +103,8 @@ def dobi_uporabnika(user_id=None, username=None, password=None):
                         (username, zakodiraj_geslo(password)))
     elif username is not None:
         kazalec.execute("SELECT * FROM Users WHERE username=%s", (username,))
+    elif email is not None:
+        kazalec.execute("SELECT * FROM Users WHERE email=%s", (email,))
     else:
         raise Exception("Napaka 'dobi_uporabnika': "
                         "Nimam dovolj podatkov, da bi našel uporabnika.")
@@ -126,12 +129,13 @@ def dobi_id(username):
     kazalec = povezava.cursor()
     kazalec.execute("SELECT id FROM Users WHERE username=%s", (username,))
 
-def profesorji():
+def profesorji(profesores):
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
+    for prof in profesores:
+        kazalec.execute("INSERT INTO Profs (ime) VALUES (%s)",(prof,))
     kazalec.execute("SELECT id, ime FROM Profs")
     return kazalec.fetchall()
-
 
 
 if __name__ == "__main__":

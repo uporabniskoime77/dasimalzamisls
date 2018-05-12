@@ -7,7 +7,7 @@
      <br>
      Za projekt pri programerskem krožku bova bova naredila spletno aplikacijo, ki ti bo na Messenger pošiljala citate profesorjev. Sam boš lahko izbral profesorja in kolikokrat na teden želiš dobivati citate.   
     </p>
-    <p>Da bova lahko izvedla projekt potrebujeva vašo pomoč. Prosila bi da nama pošljete čimveč citatov profesorjev. Če želite poslati citat se prosim registrirajte na najini strani, lahko tudi preko Googla, Facebooka in Twitterja. Če vam je lažje, nama lahko citate pošljete tudi na zs.
+    <p>Da bova lahko izvedla projekt potrebujeva vašo pomoč. Prosila bi da nama pošljete čimveč citatov profesorjev. Če želite poslati citat se prosim registrirajte na najini strani, lahko tudi preko Googla, Facebooka in Twitterja. Če vam je lažje, nama lahko citate pošljete tudi na zs. 
     </p>
     <br>
     <br>
@@ -18,8 +18,8 @@
     <p>
         <form method="POST" id="citat_id">
             <select name="profesor">
-            {%for id,prof in session['profs']%}
-              <option value="{{id}}">{{prof}}</option>
+            {%for pair in profs%}
+              <option value="{{pair[0]}}">{{pair[1]}}</option>
             {% endfor %}
             </select>
         <br>
@@ -28,6 +28,7 @@
         <br>
         <input type="submit" value="Pošlji"> 
         </form>
+        <br
     </p>
     </div>
 {% endblock %}
