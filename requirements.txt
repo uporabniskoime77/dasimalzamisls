@@ -6,3 +6,4 @@ Jinja2==2.10
 MarkupSafe==1.0
 psycopg2-binary==2.7.4
 Werkzeug==0.14.1
+flask_dance==0.14.0
