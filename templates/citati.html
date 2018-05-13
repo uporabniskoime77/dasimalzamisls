@@ -5,8 +5,19 @@
     {% for stvar in nekej %}
 
         {{stvar}}
+        <br>
 
     {% endfor %}
+    {% if prof is not none and citati is not none %}
+    <h2>{{prof}}</h2>
+    <br>
+	{% for stvar in citati %}
+
+        {{stvar}}
+        <br>
+
+    {% endfor %}
+    {% endif %}
 
     </p>
 

@@ -8,6 +8,7 @@ from flask import session
 from flask import redirect
 from flask import url_for
 from werkzeug.contrib.fixers import ProxyFix
+import sys
 
 import baza
 
@@ -70,10 +71,11 @@ def out_register(email, username):
 
 @app.route("/", methods = ['GET', 'POST'])
 def index():
-    profs = baza.profesorji(profesores)
+    profs = baza.profesorji()
     if session.get('user') is not None:
+        baza.vstavi_citat("citat", 2, 1)
         if request.method == 'POST':
-            baza.vstavi_citat(citat=request.form['citat'], prof_id=request.form['profesor'], user_id=baza.dobi_id(session['user'][0]))
+            baza.vstavi_citat(citat=request.form['citat'], prof_id=request.form['profesor'], user_id=session['user'][0])
     return render_template("domaca_stran.html", profs=profs)
     
     
@@ -166,7 +168,10 @@ def facebook_login():
     info = resp.json()
     return out_login(username=info["name"], email=info["email"])
 
-
+@app.before_first_request
+def load():
+    baza.ustvari_tabele(profesores)
+    session['user'] = None
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

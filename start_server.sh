@@ -1,2 +1,2 @@
-
+export OAUTHLIB_INSECURE_TRANSPORT=1
 FLASK_APP=main.py FLASK_DEBUG=1 python3 -m flask run

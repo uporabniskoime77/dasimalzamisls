@@ -25,11 +25,10 @@ def zakodiraj_geslo(password):
     return binascii.hexlify(dk).decode()
 
 
-def ustvari_tabele():
+def ustvari_tabele(profes):
     """ Najprej izbriši in nato naredi tabele """
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
-    print("ustvarjam tabele")
     # Zbriši
     kazalec.execute("DROP TABLE IF EXISTS Citati")    
     kazalec.execute("DROP TABLE IF EXISTS Users CASCADE")
@@ -53,6 +52,9 @@ def ustvari_tabele():
                             prof_id INT REFERENCES Profs (id),
                             user_id INT REFERENCES Users (id)
                        )""")
+    for prof in profes:
+        kazalec.execute("INSERT INTO Profs (ime) VALUES (%s)",(prof,))
+    print("ustvarjam tabele")
     povezava.commit()
     kazalec.close()
     povezava.close()
@@ -129,17 +131,9 @@ def dobi_id(username):
     kazalec = povezava.cursor()
     kazalec.execute("SELECT id FROM Users WHERE username=%s", (username,))
 
-def profesorji(profesores):
+def profesorji():
     povezava = naredi_povezavo()
     kazalec = povezava.cursor()
-    for prof in profesores:
-        kazalec.execute("INSERT INTO Profs (ime) VALUES (%s)",(prof,))
     kazalec.execute("SELECT id, ime FROM Profs")
     return kazalec.fetchall()
 
-
-if __name__ == "__main__":
-
-    ustvari_tabele()
-    print("velike stvari se dogajajo")
-    napolni_tabele()
