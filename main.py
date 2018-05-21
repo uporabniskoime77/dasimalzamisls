@@ -21,22 +21,22 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app)
 app.secret_key = "akshfdgas"
 google_blueprint = make_google_blueprint(
-    client_id="61570463416-39jkgsv8h1bfkl7epvqebli5l1qbfvcj.apps.googleusercontent.com",
-    client_secret="Sv4Yzbndtw4XVX7K9q-KRka8",
+    client_id="",
+    client_secret="",
     scope=["profile", "email"]
 )
 facebook_blueprint = make_facebook_blueprint(
-    client_id='215709269202041',
-    client_secret='89d9c7120731e5a5822e743a5237aac0',
+    client_id='',
+    client_secret='',
     scope=["public_profile", "email"],
 )
 github_blueprint = make_github_blueprint(
-    client_id="d5bf5460b7584396c62c",
-    client_secret="08f7317fa0e162c64cda8ae1f6ee22005adf900e",
+    client_id="",
+    client_secret="",
 )
 twitter_blueprint = make_twitter_blueprint(
-    api_key="xdrGzKtrIIOp9fJNlEHQgFm8K",
-    api_secret="L9JAON7utiNOVKABfgr5iM6XQWmnAXMMB3KspyHZwDiFd9NAQK",
+    api_key="",
+    api_secret="",
 )
 app.register_blueprint(google_blueprint, url_prefix="/login/google")
 app.register_blueprint(twitter_blueprint, url_prefix="/login/twitter")
